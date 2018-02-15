@@ -10,7 +10,7 @@ function Install-Service {
 	param([string]$ServiceExePath)
 	
 	$installUtilPath=GetInstallUtilPath
-	$command= "$installUtilPath $ServiceExePath"
+	$command= "&'$installUtilPath' '$ServiceExePath'"
 	Write-Verbose "invoke command $command"
 	Invoke-Expression -Command $command
 }
@@ -20,14 +20,14 @@ function Install-ServiceIfNotInstalled{
 	param([string]$ServiceExePath)
 	
 	$x=Get-WmiObject -Class Win32_Service |select pathname -ExpandProperty pathname
-	if ($x.contains($ServiceExePath))
+	if ($x.contains("""$ServiceExePath""") -or $x.contains($ServiceExePath))
 	{
-		 Write-Verbose "Service not installed start installation [$ServiceExePath]"
-		 Install-Service $ServiceExePath
+		Write-Host "Service Installed [$ServiceExePath]" 
 	}
 	else
 	{
-		Write-Host "Service Installed [$ServiceExePath]"
+		Write-Verbose "Service not installed start installation [$ServiceExePath]"
+		Install-Service -ServiceExePath $ServiceExePath
 	}
 }
 
@@ -48,7 +48,7 @@ function Uninstall-Service{
 		Write-Verbose "Path to service $ServiceName = $servicePath"
 	}
 
-	$command= "$installUtilPath /u $servicePath"
+	$command= "&'$installUtilPath' /u '$servicePath'"
 	Write-Verbose "invoke command $command"
 	Invoke-Expression -Command $command
 }
