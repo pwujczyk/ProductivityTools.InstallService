@@ -29,9 +29,8 @@
     <Content Include="InstallUtil.exe" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Install-Service.psd1" />
-    <Compile Include="Install-Service.psm1" />
-    <Compile Include="Install-Service.tests.ps1" />
+    <Compile Include="ProductivityTools.PSInstallService.psd1" />
+    <Compile Include="ProductivityTools.PSInstallService.psm1" />
     <Compile Include="Runner.ps1" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
