@@ -6,7 +6,8 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>MyApplication</RootNamespace>
     <AssemblyName>MyApplication</AssemblyName>
-    <Name>PSInstallService</Name>
+    <Name>ProductivityTools.InstallService</Name>
+    <ProjectHome />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -29,8 +30,8 @@
     <Content Include="InstallUtil.exe" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ProductivityTools.PSInstallService.psd1" />
-    <Compile Include="ProductivityTools.PSInstallService.psm1" />
+    <Compile Include="ProductivityTools.InstallService.psd1" />
+    <Compile Include="ProductivityTools.InstallService.psm1" />
     <Compile Include="Runner.ps1" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
