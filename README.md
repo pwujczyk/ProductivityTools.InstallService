@@ -23,7 +23,7 @@ Install service is a wrapper around InstallUtil.exe file. It exposes three funct
 ```PowerShell
 Install-Service -ExePath d:\bin\SimpleMarketPlace\Team-Managment\PSTeamManagement.WindowsService.exe -Verbose
 ```
-
+<!--og-image-->
 ![Install Service](Images/InstallService.png)
 
 
