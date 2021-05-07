@@ -7,45 +7,49 @@ function GetInstallUtilPath()
 
 function Install-Service {
 	[cmdletbinding()]
-	param([string]$ServiceExePath)
+	param([string]$ExePath)
+
+	Write-Verbose "Trying to install service from path $ExePath"
 	
 	$installUtilPath=GetInstallUtilPath
-	$command= "&'$installUtilPath' '$ServiceExePath'"
+	$command= "&'$installUtilPath' '$ExePath'"
 	Write-Verbose "invoke command $command"
 	Invoke-Expression -Command $command
 }
 
 function Install-ServiceIfNotInstalled{
 	[cmdletbinding()]
-	param([string]$ServiceExePath)
+	param([string]$ExePath)
 	
 	$x=Get-WmiObject -Class Win32_Service |select pathname -ExpandProperty pathname
-	if ($x.contains("""$ServiceExePath""") -or $x.contains($ServiceExePath))
+	if ($x.contains("""$ExePath""") -or $x.contains($ExePath))
 	{
-		Write-Host "Service Installed [$ServiceExePath]" 
+		Write-Host "Service Installed [$ExePath]" 
 	}
 	else
 	{
-		Write-Verbose "Service not installed start installation [$ServiceExePath]"
-		Install-Service -ServiceExePath $ServiceExePath
+		Write-Verbose "Service not installed start installation [$ExePath]"
+		Install-Service -ServiceExePath $ExePath
 	}
 }
 
 function Uninstall-Service{
 	[cmdletbinding()]
-	param([string]$ServiceExePath, [string]$ServiceName)
+	param([string]$Name,[string]$ExePath)
 
 	$installUtilPath=GetInstallUtilPath
 
-	if ($ServiceExePath.Length -gt 0)
+	if ($ExePath.Length -gt 0)
 	{
-		$servicePath=$ServiceExePath
+		$servicePath=$ExePath
+		Write-Verbose "ExePath provided"
 	}
-	if($ServiceName.Length -gt 0)
+	if($Name.Length -gt 0)
 	{
-		Stop-Service  $ServiceName
-		$servicePath=Get-WmiObject -Class Win32_Service |where {$_.name -eq "$ServiceName"} |select pathname -ExpandProperty pathname
-		Write-Verbose "Path to service $ServiceName = $servicePath"
+		Write-Verbose "Service name provided"
+		Stop-Service  $Name
+		$servicePath=Get-WmiObject -Class Win32_Service |where {$_.name -eq "$Name"} |select pathname -ExpandProperty pathname
+		Write-Verbose "Path to service $Name = $servicePath"
 	}
 
 	$command= "&'$installUtilPath' /u '$servicePath'"
