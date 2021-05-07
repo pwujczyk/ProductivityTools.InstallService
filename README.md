@@ -24,12 +24,23 @@ Install service is a wrapper around InstallUtil.exe file. It exposes three funct
 Install-Service -ExePath d:\bin\SimpleMarketPlace\Team-Managment\PSTeamManagement.WindowsService.exe -Verbose
 ```
 
-![Unistall Service](Images/InstallService.png)
+![Install Service](Images/InstallService.png)
+
+
+
+```PowerShell
+Install-ServiceIfNotInstalled -ExePath d:\bin\SimpleMarketPlace\Team-Managment\PSTeamManagement.WindowsService.exe -Verbose
+```
+
+![Install Service if not installed](Images/InstallServiceIfNotInstalled.png)
+
 
 ```PowerShell
 Uninstall-Service -Name PSTeamManagement -Verbose
 ```
 
 ![Unistall Service](Images/UninstallService.png)
+
+
 
 
